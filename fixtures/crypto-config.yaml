@@ -1,0 +1,54 @@
+OrdererOrgs:
+  - Name: CompanyLedger
+    Domain: expleoFabric.com
+    # Specs is an array of Spec entries.  Each Spec entry consists of two fields : Hostname and CommonName
+    Specs:
+      - Hostname: orderer
+        SANS:
+          - "localhost"
+          - "127.0.0.1"
+
+PeerOrgs:
+  - Name: Sales
+    Domain: sales.expleoFabric.com
+    EnableNodeOUs: true
+    Template:
+      Count: 2
+      SANS:
+          - "localhost"
+          - "127.0.0.1"
+    Users:
+      Count: 2
+
+  - Name: Resourcing
+    Domain: resourcing.expleoFabric.com
+    EnableNodeOUs: true
+    Template:
+      Count: 2
+      SANS:
+          - "localhost"
+          - "127.0.0.1"
+    Users:
+      Count: 2
+
+  - Name: EngManagement
+    Domain: engManagement.expleoFabric.com
+    EnableNodeOUs: true
+    Template:
+      Count: 2
+      SANS:
+          - "localhost"
+          - "127.0.0.1"
+    Users:
+      Count: 2
+
+  - Name: UpManagement
+    Domain: upManagement.expleoFabric.com
+    EnableNodeOUs: true
+    Template:
+      Count: 1
+      SANS:
+          - "localhost"
+          - "127.0.0.1"
+    Users:
+Count: 1
