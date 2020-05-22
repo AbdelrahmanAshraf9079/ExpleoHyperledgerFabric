@@ -7,7 +7,7 @@ docker rm -f $(docker ps -aq)
 
 ./bin/cryptogen generate --config=./crypto-config.yaml
 
-./bin/configtxgen -profile OrdererGenesis -channelID Orderer-channel -outputBlock ./channel-artifacts/genesis.block
+./bin/configtxgen -profile OrdererGenesis -channelID mainchannel -outputBlock ./channel-artifacts/genesis.block
 
 
 ./bin/configtxgen -profile MainChannel -outputCreateChannelTx ./channel-artifacts/MainChannel.tx -channelID mainchannel
