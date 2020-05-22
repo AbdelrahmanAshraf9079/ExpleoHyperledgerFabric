@@ -1,0 +1,85 @@
+# Copyright IBM Corp. All Rights Reserved.
+#
+# SPDX-License-Identifier: Apache-2.0
+#
+
+version: '2'
+
+volumes:
+  orderer2.expleoFabric.com:
+  orderer3.expleoFabric.com:
+  orderer4.expleoFabric.com:
+  orderer5.expleoFabric.com:
+
+networks:
+  expleoNetwork:
+
+services:
+
+  orderer2.expleoFabric.com:
+    extends:
+      file: base/peer-base.yaml
+      service: orderer-base
+    environment:
+      - ORDERER_GENERAL_LISTENPORT=8050
+    container_name: orderer2.expleoFabric.com
+    networks:
+      - expleoNetwork
+    volumes:
+      - ./channel-artifacts/genesis.block:/var/hyperledger/orderer/orderer.genesis.block
+      - ./crypto-config/ordererOrganizations/expleoFabric.com/orderers/orderer2.expleoFabric.com/msp:/var/hyperledger/orderer/msp
+      - ./crypto-config/ordererOrganizations/expleoFabric.com/orderers/orderer2.expleoFabric.com/tls/:/var/hyperledger/orderer/tls
+      - orderer2.expleoFabric.com:/var/hyperledger/production/orderer
+    ports:
+      - 8050:8050
+
+  orderer3.expleoFabric.com:
+    extends:
+      file: base/peer-base.yaml
+      service: orderer-base
+    environment:
+      - ORDERER_GENERAL_LISTENPORT=9050
+    container_name: orderer3.expleoFabric.com
+    networks:
+      - expleoNetwork
+    volumes:
+      - ./channel-artifacts/genesis.block:/var/hyperledger/orderer/orderer.genesis.block
+      - ./crypto-config/ordererOrganizations/expleoFabric.com/orderers/orderer3.expleoFabric.com/msp:/var/hyperledger/orderer/msp
+      - ./crypto-config/ordererOrganizations/expleoFabric.com/orderers/orderer3.expleoFabric.com/tls/:/var/hyperledger/orderer/tls
+      - orderer3.expleoFabric.com:/var/hyperledger/production/orderer
+    ports:
+      - 9050:9050
+
+  orderer4.expleoFabric.com:
+    extends:
+      file: base/peer-base.yaml
+      service: orderer-base
+    environment:
+      - ORDERER_GENERAL_LISTENPORT=10050
+    container_name: orderer4.expleoFabric.com
+    networks:
+      - expleoNetwork
+    volumes:
+      - ./channel-artifacts/genesis.block:/var/hyperledger/orderer/orderer.genesis.block
+      - ./crypto-config/ordererOrganizations/expleoFabric.com/orderers/orderer4.expleoFabric.com/msp:/var/hyperledger/orderer/msp
+      - ./crypto-config/ordererOrganizations/expleoFabric.com/orderers/orderer4.expleoFabric.com/tls/:/var/hyperledger/orderer/tls
+      - orderer4.expleoFabric.com:/var/hyperledger/production/orderer
+    ports:
+      - 10050:10050
+
+  orderer5.expleoFabric.com:
+    extends:
+      file: base/peer-base.yaml
+      service: orderer-base
+    environment:
+      - ORDERER_GENERAL_LISTENPORT=11050
+    container_name: orderer5.expleoFabric.com
+    networks:
+      - expleoNetwork
+    volumes:
+      - ./channel-artifacts/genesis.block:/var/hyperledger/orderer/orderer.genesis.block
+      - ./crypto-config/ordererOrganizations/expleoFabric.com/orderers/orderer5.expleoFabric.com/msp:/var/hyperledger/orderer/msp
+      - ./crypto-config/ordererOrganizations/expleoFabric.com/orderers/orderer5.expleoFabric.com/tls/:/var/hyperledger/orderer/tls
+      - orderer5.expleoFabric.com:/var/hyperledger/production/orderer
+    ports:
+      - 11050:11050
