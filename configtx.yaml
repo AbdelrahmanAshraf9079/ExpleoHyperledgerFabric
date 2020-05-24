@@ -162,41 +162,41 @@ Organizations:
             - Host: peer0.engManagement.expleoFabric.com
               Port: 11051
 
-    - &UpManagement
+    - &Client
         # DefaultOrg defines the organization which is used in the sampleconfig
         # of the fabric.git development environment
-        Name: UpManagementMSP
+        Name: ClientMSP
 
         # ID to load the MSP definition as
-        ID: UpManagementMSP
+        ID: ClientMSP
 
-        MSPDir: crypto-config/peerOrganizations/upManagement.expleoFabric.com/msp
+        MSPDir: crypto-config/peerOrganizations/client.expleoFabric.com/msp
 
         # Policies defines the set of policies at this level of the config tree
         # For organization policies, their canonical path is usually
         #   /Channel/<Application|Orderer>/<OrgName>/<PolicyName>
-        Policies: &UpManagementPolicies
+        Policies: &ClientPolicies
             Readers:
                 Type: Signature
-                Rule: "OR('UpManagementMSP.member')"
+                Rule: "OR('ClientMSP.member')"
                 # If your MSP is configured with the new NodeOUs, you might
                 # want to use a more specific rule like the following:
-                # Rule: "OR('UpManagementMSP.admin', 'UpManagementMSP.peer')"
+                # Rule: "OR('ClientMSP.admin', 'ClientMSP.peer')"
             Writers:
                 Type: Signature
-                Rule: "OR('UpManagementMSP.member')"
+                Rule: "OR('ClientMSP.member')"
                 # If your MSP is configured with the new NodeOUs, you might
                 # want to use a more specific rule like the following:
-                # Rule: "OR('UpManagementMSP.admin', 'UpManagementMSP.client'')"
+                # Rule: "OR('ClientMSP.admin', 'ClientMSP.client'')"
             Admins:
                 Type: Signature
-                Rule: "OR('UpManagementMSP.admin')"
+                Rule: "OR('ClientMSP.admin')"
 
         AnchorPeers:
             # AnchorPeers defines the location of peers which can be used
             # for cross org gossip communication.  Note, this value is only
             # encoded in the genesis block in the Application section context
-            - Host: peer0.upManagement.expleoFabric.com
+            - Host: peer0.client.expleoFabric.com
               Port: 13051
     
 ################################################################################
@@ -487,7 +487,7 @@ Profiles:
                 - *Sales
                 - *Resourcing
                 - *EngManagement
-                - *UpManagement
+                - *Client
 
             Capabilities:
                 <<: *ApplicationCapabilities    
@@ -501,7 +501,7 @@ Profiles:
                 - *Sales
                 - *Resourcing
                 - *EngManagement
-                - *UpManagement
+                - *Client
               
     OrdererGenesis:
         <<: *ChannelDefaults
@@ -587,12 +587,12 @@ Profiles:
                               Type: Signature
                               Rule: "OR('EngManagementMSP.admin')"
 
-                    - <<: *UpManagement
+                    - <<: *Client
                       Policies:
-                          <<: *UpManagementPolicies
+                          <<: *ClientPolicies
                           Admins:
                               Type: Signature
-                              Rule: "OR('UpManagementMSP.admin')"  
+                              Rule: "OR('ClientMSP.admin')"  
 
 
 

@@ -17,8 +17,8 @@ volumes:
   peer0.engManagement.expleoFabric.com:
   peer1.engManagement.expleoFabric.com:
 
-  peer0.upManagement.expleoFabric.com:
-  peer1.upManagement.expleoFabric.com:
+  peer0.client.expleoFabric.com:
+  peer1.client.expleoFabric.com:
 
 networks:
   expleoNetwork:
@@ -58,6 +58,40 @@ services:
     networks:
       - expleoNetwork
 
+
+  ca2:
+    image: hyperledger/fabric-ca:$IMAGE_TAG
+    environment:
+      - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
+      - FABRIC_CA_SERVER_CA_NAME=ca-engManagement
+      - FABRIC_CA_SERVER_TLS_ENABLED=true
+      - FABRIC_CA_SERVER_TLS_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.engManagement.expleoFabric.com-cert.pem
+      - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-server-config/CA2_PRIVATE_KEY
+    ports:
+      - "8054:7054"
+    command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.engManagement.expleoFabric.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/CA3_PRIVATE_KEY -b admin:adminpw -d'
+    volumes:
+      - ./crypto-config/peerOrganizations/engManagement.expleoFabric.com/ca/:/etc/hyperledger/fabric-ca-server-config
+    container_name: ca_peerEngManagement
+    networks:
+      - expleoNetwork
+
+  ca3:
+    image: hyperledger/fabric-ca:$IMAGE_TAG
+    environment:
+      - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
+      - FABRIC_CA_SERVER_CA_NAME=ca-client
+      - FABRIC_CA_SERVER_TLS_ENABLED=true
+      - FABRIC_CA_SERVER_TLS_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.client.expleoFabric.com-cert.pem
+      - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-server-config/CA2_PRIVATE_KEY
+    ports:
+      - "8054:7054"
+    command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.client.expleoFabric.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/CA4_PRIVATE_KEY -b admin:adminpw -d'
+    volumes:
+      - ./crypto-config/peerOrganizations/client.expleoFabric.com/ca/:/etc/hyperledger/fabric-ca-server-config
+    container_name: ca_peerClient
+    networks:
+      - expleoNetwork
 
   orderer.expleoFabric.com:
     extends:
@@ -99,22 +133,7 @@ services:
     networks:
       - expleoNetwork
 
-  ca2:
-    image: hyperledger/fabric-ca:$IMAGE_TAG
-    environment:
-      - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
-      - FABRIC_CA_SERVER_CA_NAME=ca-engManagement
-      - FABRIC_CA_SERVER_TLS_ENABLED=true
-      - FABRIC_CA_SERVER_TLS_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.engManagement.expleoFabric.com-cert.pem
-      - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-server-config/CA2_PRIVATE_KEY
-    ports:
-      - "8054:7054"
-    command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.engManagement.expleoFabric.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/CA3_PRIVATE_KEY -b admin:adminpw -d'
-    volumes:
-      - ./crypto-config/peerOrganizations/engManagement.expleoFabric.com/ca/:/etc/hyperledger/fabric-ca-server-config
-    container_name: ca_peerEngManagement
-    networks:
-      - expleoNetwork      
+        
 
   peer0.engManagement.expleoFabric.com:
     container_name: peer0.engManagement.expleoFabric.com
@@ -123,37 +142,27 @@ services:
       service: peer0.engManagement.expleoFabric.com
     networks:
       - expleoNetwork
-        
- peer1.engManagement.expleoFabric.com:
+
+  peer1.engManagement.expleoFabric.com:
     container_name: peer1.engManagement.expleoFabric.com
     extends:
       file:  base/docker-compose-base.yaml
       service: peer1.engManagement.expleoFabric.com
     networks:
-      - expleoNetwork 
+      - expleoNetwork
 
-
-  ca3:
-    image: hyperledger/fabric-ca:$IMAGE_TAG
-    environment:
-      - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
-      - FABRIC_CA_SERVER_CA_NAME=ca-upManagement
-      - FABRIC_CA_SERVER_TLS_ENABLED=true
-      - FABRIC_CA_SERVER_TLS_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.upManagement.expleoFabric.com-cert.pem
-      - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-server-config/CA2_PRIVATE_KEY
-    ports:
-      - "8054:7054"
-    command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.upManagement.expleoFabric.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/CA4_PRIVATE_KEY -b admin:adminpw -d'
-    volumes:
-      - ./crypto-config/peerOrganizations/upManagement.expleoFabric.com/ca/:/etc/hyperledger/fabric-ca-server-config
-    container_name: ca_peerUpManagement
-    networks:
-      - expleoNetwork 
-
-  peer0.upManagement.expleoFabric.com:
-    container_name: peer0.upManagement.expleoFabric.com
+  peer0.client.expleoFabric.com:
+    container_name: peer0.client.expleoFabric.com
     extends:
       file:  base/docker-compose-base.yaml
-      service: peer0.upManagement.expleoFabric.com
+      service: peer0.client.expleoFabric.com
     networks:
-      - expleoNetwork       
+      - expleoNetwork
+
+  peer1.client.expleoFabric.com:
+    container_name: peer1.client.expleoFabric.com
+    extends:
+      file:  base/docker-compose-base.yaml
+      service: peer1.client.expleoFabric.com
+    networks:
+      - expleoNetwork

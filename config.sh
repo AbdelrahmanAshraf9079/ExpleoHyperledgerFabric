@@ -3,8 +3,6 @@ export FABRIC_CFG_PATH=$PWD
 rm -rf artifacts/*
 rm -rf crypto-config/
 
-docker rm -f $(docker ps -aq)
-
 
 ./bin/cryptogen generate --config=./crypto-config.yaml
 
@@ -20,16 +18,15 @@ docker rm -f $(docker ps -aq)
 
 ./bin/configtxgen -profile MainChannel -outputAnchorPeersUpdate ./channel-artifacts/EngManagementMSPanchors.tx -channelID mainchannel -asOrg EngManagementMSP
 
-./bin/configtxgen -profile MainChannel -outputAnchorPeersUpdate ./channel-artifacts/UpManagementMSPanchors.tx -channelID mainchannel -asOrg UpManagementMSP
-
+./bin/configtxgen -profile MainChannel -outputAnchorPeersUpdate ./channel-artifacts/ClientMSPanchors.tx -channelID mainchannel -asOrg ClientMSP
 
 
 
 export IMAGE_TAG=latest
 
-docker-compose -f docker-compose-cli.yaml  -f docker-compose-etcdraft2.yaml up 
+#docker-compose -f docker-compose-cli.yaml  -f docker-compose-etcdraft2.yaml up -d
 
-# docker-compose -f docker-compose-cli.yaml -f docker-compose-couch.yaml -f docker-compose-etcdraft2.yaml up -d
+ docker-compose -f docker-compose-cli.yaml -f docker-compose-couch.yaml -f docker-compose-etcdraft2.yaml up -d
 
 docker ps -a
 

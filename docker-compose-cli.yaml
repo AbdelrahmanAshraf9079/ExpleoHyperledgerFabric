@@ -17,8 +17,8 @@ volumes:
   peer0.engManagement.expleoFabric.com:
   peer1.engManagement.expleoFabric.com:
 
-  peer0.upManagement.expleoFabric.com:
-  peer1.upManagement.expleoFabric.com:
+  peer0.client.expleoFabric.com:
+  peer1.client.expleoFabric.com:
 
 networks:
   expleoNetwork:
@@ -81,11 +81,19 @@ services:
     networks:
       - expleoNetwork
 
-  peer0.upManagement.expleoFabric.com:
-    container_name: peer0.upManagement.expleoFabric.com
+  peer0.client.expleoFabric.com:
+    container_name: peer0.client.expleoFabric.com
     extends:
       file:  base/docker-compose-base.yaml
-      service: peer0.upManagement.expleoFabric.com
+      service: peer0.client.expleoFabric.com
+    networks:
+      - expleoNetwork
+
+  peer1.client.expleoFabric.com:
+    container_name: peer1.client.expleoFabric.com
+    extends:
+      file:  base/docker-compose-base.yaml
+      service: peer1.client.expleoFabric.com
     networks:
       - expleoNetwork
 
@@ -123,6 +131,8 @@ services:
       - peer1.resourcing.expleoFabric.com
       - peer0.engManagement.expleoFabric.com
       - peer1.engManagement.expleoFabric.com
-      - peer0.upManagement.expleoFabric.com
+      - peer0.client.expleoFabric.com
+      - peer1.client.expleoFabric.com
+      
     networks:
       - expleoNetwork

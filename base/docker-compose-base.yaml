@@ -168,27 +168,50 @@ services:
       - 12052:12052
       - 12053:12051
       
-
-  peer0.upManagement.expleoFabric.com:
-    container_name: peer0.upManagement.expleoFabric.com
+  peer0.client.expleoFabric.com:
+    container_name: peer0.client.expleoFabric.com
     extends:
       file: peer-base.yaml
       service: peer-base
     environment:
-      - CORE_PEER_ID=peer0.upManagement.expleoFabric.com
-      - CORE_PEER_ADDRESS=peer0.upManagement.expleoFabric.com:13051
+      - CORE_PEER_ID=peer0.client.expleoFabric.com
+      - CORE_PEER_ADDRESS=peer0.client.expleoFabric.com:13051
       - CORE_PEER_LISTENADDRESS=0.0.0.0:13051
-      - CORE_PEER_CHAINCODEADDRESS=peer0.upManagement.expleoFabric.com:13052
+      - CORE_PEER_CHAINCODEADDRESS=peer0.client.expleoFabric.com:13052
       - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:13052
-      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.upManagement.expleoFabric.com:13051
-     # - CORE_PEER_GOSSIP_BOOTSTRAP=peer1.upManagement.expleoFabric.com:14051
-      - CORE_PEER_LOCALMSPID=UpManagementMSP
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.client.expleoFabric.com:13051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer1.client.expleoFabric.com:14051
+      - CORE_PEER_LOCALMSPID=ClientMSP
     volumes:
         - /var/run/:/host/var/run/
-        - ../crypto-config/peerOrganizations/upManagement.expleoFabric.com/peers/peer0.upManagement.expleoFabric.com/msp:/etc/hyperledger/fabric/msp
-        - ../crypto-config/peerOrganizations/upManagement.expleoFabric.com/peers/peer0.upManagement.expleoFabric.com/tls:/etc/hyperledger/fabric/tls
-        - peer0.upManagement.expleoFabric.com:/var/hyperledger/production
+        - ../crypto-config/peerOrganizations/client.expleoFabric.com/peers/peer0.client.expleoFabric.com/msp:/etc/hyperledger/fabric/msp
+        - ../crypto-config/peerOrganizations/client.expleoFabric.com/peers/peer0.client.expleoFabric.com/tls:/etc/hyperledger/fabric/tls
+        - peer0.client.expleoFabric.com:/var/hyperledger/production
     ports:
       - 13051:13051
       - 13052:13052
       - 13053:13051
+
+  peer1.client.expleoFabric.com:
+    container_name: peer1.client.expleoFabric.com
+    extends:
+      file: peer-base.yaml
+      service: peer-base
+    environment:
+      - CORE_PEER_ID=peer1.client.expleoFabric.com
+      - CORE_PEER_ADDRESS=peer1.client.expleoFabric.com:14051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:14051
+      - CORE_PEER_CHAINCODEADDRESS=peer1.client.expleoFabric.com:14052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:14052
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer1.client.expleoFabric.com:14051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.client.expleoFabric.com:13051
+      - CORE_PEER_LOCALMSPID=ClientMSP
+    volumes:
+        - /var/run/:/host/var/run/
+        - ../crypto-config/peerOrganizations/client.expleoFabric.com/peers/peer1.client.expleoFabric.com/msp:/etc/hyperledger/fabric/msp
+        - ../crypto-config/peerOrganizations/client.expleoFabric.com/peers/peer1.client.expleoFabric.com/tls:/etc/hyperledger/fabric/tls
+        - peer1.client.expleoFabric.com:/var/hyperledger/production
+    ports:
+      - 14051:14051
+      - 14052:14052
+      - 14053:14051

@@ -41,15 +41,15 @@ PeerOrgs:
           - "localhost"
           - "127.0.0.1"
     Users:
-      Count: 2
+      Count: 3
 
-  - Name: UpManagement
-    Domain: upManagement.expleoFabric.com
+  - Name: Client
+    Domain: client.expleoFabric.com
     EnableNodeOUs: true
     Template:
-      Count: 1
+      Count: 2
       SANS:
           - "localhost"
           - "127.0.0.1"
     Users:
-Count: 1
+      Count: 3
