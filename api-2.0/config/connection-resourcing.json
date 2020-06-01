@@ -1,0 +1,60 @@
+{
+    "name": "fabric-network-resourcing",
+    "version": "1.0.0",
+    "client": {
+      "organization": "Resourcing",
+      "connection": {
+        "timeout": {
+          "peer": {
+            "endorser": "300"
+          }
+        }
+      }
+    },
+    "organizations": {
+      "Resourcing": {
+        "mspid": "ResourcingMSP",
+        "peers": [
+          "peer0.resourcing.expleoFabric.com",
+          "peer1.resourcing.expleoFabric.com"
+        ],
+        "certificateAuthorities": [
+          "ca.resourcing.expleoFabric.com"
+        ]
+      }
+    },
+    "peers": {
+      "peer0.resourcing.expleoFabric.com": {
+        "url": "grpcs://localhost:9051",
+        "tlsCACerts": {
+          "pem": "-----BEGIN CERTIFICATE-----\nMIIChTCCAiugAwIBAgIQQnRKFRVM0lUQpYcpgu+b6DAKBggqhkjOPQQDAjCBjDEL\nMAkGA1UEBhMCVVMxEzARBgNVBAgTCkNhbGlmb3JuaWExFjAUBgNVBAcTDVNhbiBG\ncmFuY2lzY28xJDAiBgNVBAoTG3Jlc291cmNpbmcuZXhwbGVvRmFicmljLmNvbTEq\nMCgGA1UEAxMhdGxzY2EucmVzb3VyY2luZy5leHBsZW9GYWJyaWMuY29tMB4XDTIw\nMDUyOTE0MDAwMFoXDTMwMDUyNzE0MDAwMFowgYwxCzAJBgNVBAYTAlVTMRMwEQYD\nVQQIEwpDYWxpZm9ybmlhMRYwFAYDVQQHEw1TYW4gRnJhbmNpc2NvMSQwIgYDVQQK\nExtyZXNvdXJjaW5nLmV4cGxlb0ZhYnJpYy5jb20xKjAoBgNVBAMTIXRsc2NhLnJl\nc291cmNpbmcuZXhwbGVvRmFicmljLmNvbTBZMBMGByqGSM49AgEGCCqGSM49AwEH\nA0IABKPhkNpUFh5ozikNwdyhVgeDbskL47GWhgfzKdHlfOCeAL8U0D76VKjfiV9z\n0fyFkg3LGU2HxHyhbLvH4Pw78nejbTBrMA4GA1UdDwEB/wQEAwIBpjAdBgNVHSUE\nFjAUBggrBgEFBQcDAgYIKwYBBQUHAwEwDwYDVR0TAQH/BAUwAwEB/zApBgNVHQ4E\nIgQg7xE7NwDEVnc0qLGt8qyOdlRrTio7AFodoUfCo24qvLEwCgYIKoZIzj0EAwID\nSAAwRQIhAK+b+eA9fqlKj4IBAqgKBOyvaYC6pmA7f94ruVMBbFmBAiA6bgPphQuM\n28+P6wt0jDVTQrfZAz6Y8wt2sIzPD5U/vQ==\n-----END CERTIFICATE-----\n"
+        },
+        "grpcOptions": {
+          "ssl-target-name-override": "peer0.resourcing.expleoFabric.com",
+          "hostnameOverride": "peer0.resourcing.expleoFabric.com"
+        }
+      },
+      "peer1.resourcing.expleoFabric.com": {
+        "url": "grpcs://localhost:10051",
+        "tlsCACerts": {
+          "pem": "-----BEGIN CERTIFICATE-----\nMIIChTCCAiugAwIBAgIQQnRKFRVM0lUQpYcpgu+b6DAKBggqhkjOPQQDAjCBjDEL\nMAkGA1UEBhMCVVMxEzARBgNVBAgTCkNhbGlmb3JuaWExFjAUBgNVBAcTDVNhbiBG\ncmFuY2lzY28xJDAiBgNVBAoTG3Jlc291cmNpbmcuZXhwbGVvRmFicmljLmNvbTEq\nMCgGA1UEAxMhdGxzY2EucmVzb3VyY2luZy5leHBsZW9GYWJyaWMuY29tMB4XDTIw\nMDUyOTE0MDAwMFoXDTMwMDUyNzE0MDAwMFowgYwxCzAJBgNVBAYTAlVTMRMwEQYD\nVQQIEwpDYWxpZm9ybmlhMRYwFAYDVQQHEw1TYW4gRnJhbmNpc2NvMSQwIgYDVQQK\nExtyZXNvdXJjaW5nLmV4cGxlb0ZhYnJpYy5jb20xKjAoBgNVBAMTIXRsc2NhLnJl\nc291cmNpbmcuZXhwbGVvRmFicmljLmNvbTBZMBMGByqGSM49AgEGCCqGSM49AwEH\nA0IABKPhkNpUFh5ozikNwdyhVgeDbskL47GWhgfzKdHlfOCeAL8U0D76VKjfiV9z\n0fyFkg3LGU2HxHyhbLvH4Pw78nejbTBrMA4GA1UdDwEB/wQEAwIBpjAdBgNVHSUE\nFjAUBggrBgEFBQcDAgYIKwYBBQUHAwEwDwYDVR0TAQH/BAUwAwEB/zApBgNVHQ4E\nIgQg7xE7NwDEVnc0qLGt8qyOdlRrTio7AFodoUfCo24qvLEwCgYIKoZIzj0EAwID\nSAAwRQIhAK+b+eA9fqlKj4IBAqgKBOyvaYC6pmA7f94ruVMBbFmBAiA6bgPphQuM\n28+P6wt0jDVTQrfZAz6Y8wt2sIzPD5U/vQ==\n-----END CERTIFICATE-----\n"
+        },
+        "grpcOptions": {
+          "ssl-target-name-override": "peer1.resourcing.expleoFabric.com",
+          "hostnameOverride": "peer1.resourcing.expleoFabric.com"
+        }
+      }
+    },
+    "certificateAuthorities": {
+      "ca.resourcing.expleoFabric.com": {
+        "url": "https://localhost:8054",
+        "caName": "ca-resourcing",
+        "tlsCACerts": {
+          "pem": "-----BEGIN CERTIFICATE-----\nMIIChTCCAiugAwIBAgIQQnRKFRVM0lUQpYcpgu+b6DAKBggqhkjOPQQDAjCBjDEL\nMAkGA1UEBhMCVVMxEzARBgNVBAgTCkNhbGlmb3JuaWExFjAUBgNVBAcTDVNhbiBG\ncmFuY2lzY28xJDAiBgNVBAoTG3Jlc291cmNpbmcuZXhwbGVvRmFicmljLmNvbTEq\nMCgGA1UEAxMhdGxzY2EucmVzb3VyY2luZy5leHBsZW9GYWJyaWMuY29tMB4XDTIw\nMDUyOTE0MDAwMFoXDTMwMDUyNzE0MDAwMFowgYwxCzAJBgNVBAYTAlVTMRMwEQYD\nVQQIEwpDYWxpZm9ybmlhMRYwFAYDVQQHEw1TYW4gRnJhbmNpc2NvMSQwIgYDVQQK\nExtyZXNvdXJjaW5nLmV4cGxlb0ZhYnJpYy5jb20xKjAoBgNVBAMTIXRsc2NhLnJl\nc291cmNpbmcuZXhwbGVvRmFicmljLmNvbTBZMBMGByqGSM49AgEGCCqGSM49AwEH\nA0IABKPhkNpUFh5ozikNwdyhVgeDbskL47GWhgfzKdHlfOCeAL8U0D76VKjfiV9z\n0fyFkg3LGU2HxHyhbLvH4Pw78nejbTBrMA4GA1UdDwEB/wQEAwIBpjAdBgNVHSUE\nFjAUBggrBgEFBQcDAgYIKwYBBQUHAwEwDwYDVR0TAQH/BAUwAwEB/zApBgNVHQ4E\nIgQg7xE7NwDEVnc0qLGt8qyOdlRrTio7AFodoUfCo24qvLEwCgYIKoZIzj0EAwID\nSAAwRQIhAK+b+eA9fqlKj4IBAqgKBOyvaYC6pmA7f94ruVMBbFmBAiA6bgPphQuM\n28+P6wt0jDVTQrfZAz6Y8wt2sIzPD5U/vQ==\n-----END CERTIFICATE-----\n"
+        },
+        "httpOptions": {
+          "verify": false
+        }
+      }
+    }
+  }

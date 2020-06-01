@@ -1,0 +1,60 @@
+{
+  "name": "fabric-network-client",
+  "version": "1.0.0",
+  "client": {
+    "organization": "Client",
+    "connection": {
+      "timeout": {
+        "peer": {
+          "endorser": "300"
+        }
+      }
+    }
+  },
+  "organizations": {
+    "Client": {
+      "mspid": "ClientMSP",
+      "peers": [
+        "peer0.client.expleoFabric.com",
+        "peer1.client.expleoFabric.com"
+      ],
+      "certificateAuthorities": [
+        "ca.client.expleoFabric.com"
+      ]
+    }
+  },
+  "peers": {
+    "peer0.client.expleoFabric.com": {
+      "url": "grpcs://localhost:13051",
+      "tlsCACerts": {
+        "pem": "-----BEGIN CERTIFICATE-----\nMIICdjCCAhygAwIBAgIRAMpz+GRKZU6pFvOMKRYkV3EwCgYIKoZIzj0EAwIwgYQx\nCzAJBgNVBAYTAlVTMRMwEQYDVQQIEwpDYWxpZm9ybmlhMRYwFAYDVQQHEw1TYW4g\nRnJhbmNpc2NvMSAwHgYDVQQKExdjbGllbnQuZXhwbGVvRmFicmljLmNvbTEmMCQG\nA1UEAxMddGxzY2EuY2xpZW50LmV4cGxlb0ZhYnJpYy5jb20wHhcNMjAwNTI5MTQw\nMDAwWhcNMzAwNTI3MTQwMDAwWjCBhDELMAkGA1UEBhMCVVMxEzARBgNVBAgTCkNh\nbGlmb3JuaWExFjAUBgNVBAcTDVNhbiBGcmFuY2lzY28xIDAeBgNVBAoTF2NsaWVu\ndC5leHBsZW9GYWJyaWMuY29tMSYwJAYDVQQDEx10bHNjYS5jbGllbnQuZXhwbGVv\nRmFicmljLmNvbTBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABD+/+JHV76hEyhLK\nXZXCcMVrwt5CBUioFOVHrbEtn5B9Atbrhvar93PXiTMxWO/7VQxe0L/aspGHGf9m\nUjiRRO6jbTBrMA4GA1UdDwEB/wQEAwIBpjAdBgNVHSUEFjAUBggrBgEFBQcDAgYI\nKwYBBQUHAwEwDwYDVR0TAQH/BAUwAwEB/zApBgNVHQ4EIgQg6iBNXNY06jyQzmHL\nEcP0npM7Ey2HSUmkZhf7Dse4zyowCgYIKoZIzj0EAwIDSAAwRQIhAIUdbTocQnOZ\nmeawHa8fnBFyDmaMDOtih0YtDqEhuAdYAiBNdS/eEnDmkItG7MfM+VBJrizdcd/9\npzscSbnSHXFWBg==\n-----END CERTIFICATE-----\n"
+      },
+      "grpcOptions": {
+        "ssl-target-name-override": "peer0.client.expleoFabric.com",
+        "hostnameOverride": "peer0.client.expleoFabric.com"
+      }
+    },
+    "peer1.client.expleoFabric.com": {
+      "url": "grpcs://localhost:14051",
+      "tlsCACerts": {
+        "pem": "-----BEGIN CERTIFICATE-----\nMIICdjCCAhygAwIBAgIRAMpz+GRKZU6pFvOMKRYkV3EwCgYIKoZIzj0EAwIwgYQx\nCzAJBgNVBAYTAlVTMRMwEQYDVQQIEwpDYWxpZm9ybmlhMRYwFAYDVQQHEw1TYW4g\nRnJhbmNpc2NvMSAwHgYDVQQKExdjbGllbnQuZXhwbGVvRmFicmljLmNvbTEmMCQG\nA1UEAxMddGxzY2EuY2xpZW50LmV4cGxlb0ZhYnJpYy5jb20wHhcNMjAwNTI5MTQw\nMDAwWhcNMzAwNTI3MTQwMDAwWjCBhDELMAkGA1UEBhMCVVMxEzARBgNVBAgTCkNh\nbGlmb3JuaWExFjAUBgNVBAcTDVNhbiBGcmFuY2lzY28xIDAeBgNVBAoTF2NsaWVu\ndC5leHBsZW9GYWJyaWMuY29tMSYwJAYDVQQDEx10bHNjYS5jbGllbnQuZXhwbGVv\nRmFicmljLmNvbTBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABD+/+JHV76hEyhLK\nXZXCcMVrwt5CBUioFOVHrbEtn5B9Atbrhvar93PXiTMxWO/7VQxe0L/aspGHGf9m\nUjiRRO6jbTBrMA4GA1UdDwEB/wQEAwIBpjAdBgNVHSUEFjAUBggrBgEFBQcDAgYI\nKwYBBQUHAwEwDwYDVR0TAQH/BAUwAwEB/zApBgNVHQ4EIgQg6iBNXNY06jyQzmHL\nEcP0npM7Ey2HSUmkZhf7Dse4zyowCgYIKoZIzj0EAwIDSAAwRQIhAIUdbTocQnOZ\nmeawHa8fnBFyDmaMDOtih0YtDqEhuAdYAiBNdS/eEnDmkItG7MfM+VBJrizdcd/9\npzscSbnSHXFWBg==\n-----END CERTIFICATE-----\n"
+      },
+      "grpcOptions": {
+        "ssl-target-name-override": "peer1.client.expleoFabric.com",
+        "hostnameOverride": "peer1.client.expleoFabric.com"
+      }
+    }
+  },
+  "certificateAuthorities": {
+    "ca.client.expleoFabric.com": {
+      "url": "https://localhost:10054",
+      "caName": "ca-client",
+      "tlsCACerts": {
+        "pem": "-----BEGIN CERTIFICATE-----\nMIICdjCCAhygAwIBAgIRAMpz+GRKZU6pFvOMKRYkV3EwCgYIKoZIzj0EAwIwgYQx\nCzAJBgNVBAYTAlVTMRMwEQYDVQQIEwpDYWxpZm9ybmlhMRYwFAYDVQQHEw1TYW4g\nRnJhbmNpc2NvMSAwHgYDVQQKExdjbGllbnQuZXhwbGVvRmFicmljLmNvbTEmMCQG\nA1UEAxMddGxzY2EuY2xpZW50LmV4cGxlb0ZhYnJpYy5jb20wHhcNMjAwNTI5MTQw\nMDAwWhcNMzAwNTI3MTQwMDAwWjCBhDELMAkGA1UEBhMCVVMxEzARBgNVBAgTCkNh\nbGlmb3JuaWExFjAUBgNVBAcTDVNhbiBGcmFuY2lzY28xIDAeBgNVBAoTF2NsaWVu\ndC5leHBsZW9GYWJyaWMuY29tMSYwJAYDVQQDEx10bHNjYS5jbGllbnQuZXhwbGVv\nRmFicmljLmNvbTBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABD+/+JHV76hEyhLK\nXZXCcMVrwt5CBUioFOVHrbEtn5B9Atbrhvar93PXiTMxWO/7VQxe0L/aspGHGf9m\nUjiRRO6jbTBrMA4GA1UdDwEB/wQEAwIBpjAdBgNVHSUEFjAUBggrBgEFBQcDAgYI\nKwYBBQUHAwEwDwYDVR0TAQH/BAUwAwEB/zApBgNVHQ4EIgQg6iBNXNY06jyQzmHL\nEcP0npM7Ey2HSUmkZhf7Dse4zyowCgYIKoZIzj0EAwIDSAAwRQIhAIUdbTocQnOZ\nmeawHa8fnBFyDmaMDOtih0YtDqEhuAdYAiBNdS/eEnDmkItG7MfM+VBJrizdcd/9\npzscSbnSHXFWBg==\n-----END CERTIFICATE-----\n"
+      },
+      "httpOptions": {
+        "verify": false
+      }
+    }
+  }
+}
