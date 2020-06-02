@@ -9,14 +9,14 @@ const util = require('util')
 const helper = require('./helper')
 
 const invokeTransaction = async (channelName, chaincodeName, fcn, args, username, org_name) => {
+    let orgPath = `connection-${org_name}.json`
     try {
-        logger.debug(util.format('\n============ invoke transaction on channel %s ============\n', channelName));
-
+    
         // load the network configuration
-        const ccpPath = path.resolve(__dirname, '..', 'config', 'connection-sales.json');
+        const ccpPath = path.resolve(__dirname, '..', 'config', orgPath);
         const ccpJSON = fs.readFileSync(ccpPath, 'utf8')
         const ccp = JSON.parse(ccpJSON);
-
+        
         // Create a new file system based wallet for managing identities.
         const walletPath = path.join(process.cwd(), 'wallet');
         const wallet = await Wallets.newFileSystemWallet(walletPath);
@@ -52,6 +52,8 @@ const invokeTransaction = async (channelName, chaincodeName, fcn, args, username
         let message;
         if (fcn === "createDocument") {
             result = await contract.submitTransaction(fcn, args[0], args[1], args[2], args[3], args[4], args[5], args[6]);
+            console.log(result.toString())
+
             message = `Successfully added the document asset with key ${args[0]}`
 
         } else if (fcn === "modifiyDocument") {
@@ -69,14 +71,13 @@ const invokeTransaction = async (channelName, chaincodeName, fcn, args, username
         }
 
         await gateway.disconnect();
-
-        result = JSON.parse(result.toString());
+        
+        //result = JSON.parse(result.toString());
 
         let response = {
             message: message,
-            result
+            //result
         }
-
         return response;
 
 

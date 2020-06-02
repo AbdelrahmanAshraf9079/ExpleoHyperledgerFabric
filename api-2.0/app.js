@@ -77,9 +77,7 @@ function getErrorMessage(field) {
 app.post('/users', async function (req, res) {
     var username = req.body.username;
     var orgName = req.body.orgName;
-    logger.debug('End point : /users');
-    logger.debug('User name : ' + username);
-    logger.debug('Org name  : ' + orgName);
+
     if (!username) {
         res.json(getErrorMessage('\'username\''));
         return;
@@ -95,9 +93,10 @@ app.post('/users', async function (req, res) {
         orgName: orgName
     }, app.get('secret'));
 
-    let response = await helper.getRegisteredUser(username, orgName, true);
+    let response = await helper.getRegisteredUser(username, orgName, true,orgName);
 
-    logger.debug('-- returned from registering the username %s for organization %s', username, orgName);
+    console.log(response)
+
     if (response && typeof response !== 'string') {
         logger.debug('Successfully registered the username %s for organization %s', username, orgName);
         response.token = token;
@@ -110,18 +109,15 @@ app.post('/users', async function (req, res) {
 });
 
 // Invoke transaction on chaincode on target peers
-app.post('/channels/:channelName/chaincodes/:chaincodeName', async function (req, res) {
+app.post('/invoke', async function (req, res) {
     try {
         logger.debug('==================== INVOKE ON CHAINCODE ==================');
         var peers = req.body.peers;
-        var chaincodeName = req.params.chaincodeName;
-        var channelName = req.params.channelName;
+        var chaincodeName = req.body.chaincodeName;
+        var channelName = req.body.channelName;
         var fcn = req.body.fcn;
         var args = req.body.args;
-        logger.debug('channelName  : ' + channelName);
-        logger.debug('chaincodeName : ' + chaincodeName);
-        logger.debug('fcn  : ' + fcn);
-        logger.debug('args  : ' + args);
+        
         if (!chaincodeName) {
             res.json(getErrorMessage('\'chaincodeName\''));
             return;
@@ -159,21 +155,15 @@ app.post('/channels/:channelName/chaincodes/:chaincodeName', async function (req
     }
 });
 
-app.get('/channels/:channelName/chaincodes/:chaincodeName', async function (req, res) {
+app.get('/invoke', async function (req, res) {
     try {
-        logger.debug('==================== QUERY BY CHAINCODE ==================');
+       
 
-        var channelName = req.params.channelName;
-        var chaincodeName = req.params.chaincodeName;
-        console.log(`chaincode name is :${chaincodeName}`)
-        let args = req.query.args;
-        let fcn = req.query.fcn;
-        let peer = req.query.peer;
-
-        logger.debug('channelName : ' + channelName);
-        logger.debug('chaincodeName : ' + chaincodeName);
-        logger.debug('fcn : ' + fcn);
-        logger.debug('args : ' + args);
+        var channelName = req.body.channelName;
+        var chaincodeName = req.body.chaincodeName;
+        let args = req.body.args;
+        let fcn = req.body.fcn;
+        let peer = req.body.peer;
 
         if (!chaincodeName) {
             res.json(getErrorMessage('\'chaincodeName\''));
@@ -192,9 +182,9 @@ app.get('/channels/:channelName/chaincodes/:chaincodeName', async function (req,
             return;
         }
         console.log('args==========', args);
-        args = args.replace(/'/g, '"');
-        args = JSON.parse(args);
-        logger.debug(args);
+        //args = args.replace(/'/g, '"');
+        //args = JSON.parse(args);
+            
 
         let message = await query.query(channelName, chaincodeName, args, fcn, req.username, req.orgname);
 

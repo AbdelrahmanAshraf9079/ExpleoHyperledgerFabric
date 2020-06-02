@@ -9,10 +9,13 @@ const util = require('util')
 const helper = require('./helper')
 const query = async (channelName, chaincodeName, args, fcn, username, org_name) => {
 
+
+    let orgPath = `connection-${org_name}.json`
+
     try {
 
         // load the network configuration
-        const ccpPath = path.resolve(__dirname, '..', 'config', 'connection-sales.json');
+        const ccpPath = path.resolve(__dirname, '..', 'config', orgPath);
         const ccpJSON = fs.readFileSync(ccpPath, 'utf8')
         const ccp = JSON.parse(ccpJSON);
 
@@ -45,24 +48,24 @@ const query = async (channelName, chaincodeName, args, fcn, username, org_name) 
         if (fcn == "readDocument"){
 
         let result = await contract.evaluateTransaction(fcn, args[0]);
-        console.log(`Transaction has been evaluated (fcn = readDocument), result is: ${result.toString()}`);
 
+        result = JSON.parse(result.toString());
+        return result
+        
         } else if ( fcn == "getDocumentHistory"){
 
         let result = await contract.evaluateTransaction(fcn, args[0]);
-        console.log(`Transaction has been evaluated (fcn = getDocumentHistory), result is: ${result.toString()}`);
+        result = JSON.parse(result.toString());
+        return result
 
         } else if ( fcn == "getAllDocuments" ){
 
         let result = await contract.evaluateTransaction(fcn);
-        console.log(`Transaction has been evaluated (fcn = getAllDocuments), result is: ${result.toString()}`);
+        result = JSON.parse(result.toString());
+        return result
 
         }
 
-
-        
-        result = JSON.parse(result.toString());
-        return result
     } catch (error) {
         console.error(`Failed to evaluate transaction: ${error}`);
         return error.message
