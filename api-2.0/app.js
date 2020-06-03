@@ -77,7 +77,7 @@ function getErrorMessage(field) {
 app.post('/users', async function (req, res) {
     var username = req.body.username;
     var orgName = req.body.orgName;
-
+    console.log(username)
     if (!username) {
         res.json(getErrorMessage('\'username\''));
         return;
@@ -112,6 +112,8 @@ app.post('/users', async function (req, res) {
 app.post('/invoke', async function (req, res) {
     try {
         logger.debug('==================== INVOKE ON CHAINCODE ==================');
+        var orgName = req.body.orgName;
+        var userName = req.body.userName;
         var peers = req.body.peers;
         var chaincodeName = req.body.chaincodeName;
         var channelName = req.body.channelName;
@@ -135,7 +137,7 @@ app.post('/invoke', async function (req, res) {
             return;
         }
 
-        let message = await invoke.invokeTransaction(channelName, chaincodeName, fcn, args, req.username, req.orgname);
+        let message = await invoke.invokeTransaction(channelName, chaincodeName, fcn, args, userName, orgName);
         console.log(`message result is : ${message}`)
 
         const response_payload = {
@@ -157,8 +159,8 @@ app.post('/invoke', async function (req, res) {
 
 app.get('/invoke', async function (req, res) {
     try {
-       
-
+        var orgName = req.body.orgName;
+        var userName = req.body.userName;
         var channelName = req.body.channelName;
         var chaincodeName = req.body.chaincodeName;
         let args = req.body.args;
@@ -186,7 +188,7 @@ app.get('/invoke', async function (req, res) {
         //args = JSON.parse(args);
             
 
-        let message = await query.query(channelName, chaincodeName, args, fcn, req.username, req.orgname);
+        let message = await query.query(channelName, chaincodeName, args, fcn, userName, orgName);
 
         const response_payload = {
             result: message,

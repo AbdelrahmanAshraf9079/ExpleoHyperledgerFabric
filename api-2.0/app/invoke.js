@@ -8,8 +8,19 @@ const util = require('util')
 
 const helper = require('./helper')
 
-const invokeTransaction = async (channelName, chaincodeName, fcn, args, username, org_name) => {
-    let orgPath = `connection-${org_name}.json`
+const invokeTransaction = async (channelName, chaincodeName, fcn, args, username, orgName) => {
+    
+    let orgPath = `connection-${orgName}.json`;
+    let orgCa = `ca.${orgName}.expleoFabric.com`;
+
+    let ccpPath = path.resolve(__dirname, '..', 'config', orgPath);
+    let ccpJSON = fs.readFileSync(ccpPath, 'utf8');
+    let ccp = JSON.parse(ccpJSON);
+
+    orgName = orgName.charAt(0).toUpperCase()+orgName.slice(1);
+    let orgMSP =`${orgName}MSP`;
+    let walletName = `wallet${orgName}`;
+
     try {
     
         // load the network configuration
@@ -18,7 +29,7 @@ const invokeTransaction = async (channelName, chaincodeName, fcn, args, username
         const ccp = JSON.parse(ccpJSON);
         
         // Create a new file system based wallet for managing identities.
-        const walletPath = path.join(process.cwd(), 'wallet');
+        const walletPath = path.join(process.cwd(), walletName);
         const wallet = await Wallets.newFileSystemWallet(walletPath);
         console.log(`Wallet path: ${walletPath}`);
 

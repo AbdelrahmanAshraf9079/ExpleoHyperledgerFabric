@@ -11,27 +11,28 @@ const util = require('util');
 
 
 const getRegisteredUser = async (username, userOrg, isJson, orgName) => {
+    let globalName = orgName
 
     let orgPath = `connection-${orgName}.json`
     let orgCa = `ca.${orgName}.expleoFabric.com`
-    orgName = orgName.charAt(0).toUpperCase()+orgName.slice(1)
-    let orgMSP =`${orgName}MSP`
 
     let ccpPath = path.resolve(__dirname, '..', 'config', orgPath);
     let ccpJSON = fs.readFileSync(ccpPath, 'utf8')
     let ccp = JSON.parse(ccpJSON);
 
-    console.log(JSON.stringify(Wallets))
+    orgName = orgName.charAt(0).toUpperCase()+orgName.slice(1)
+    let orgMSP =`${orgName}MSP`
+    let walletName = `wallet${orgName}`
 
+    
     
     // Create a new CA client for interacting with the CA.
     const caURL = ccp.certificateAuthorities[ orgCa ].url;
     const ca = new FabricCAServices(caURL);
 
-    const walletPath = path.join(process.cwd(), 'wallet');
+    const walletPath = path.join(process.cwd(), walletName);
     const wallet = await Wallets.newFileSystemWallet(walletPath);
-    console.log(`Wallet path: ${walletPath}`);
-
+    
     const userIdentity = await wallet.get(username);
     if (userIdentity) {
         console.log(`An identity for the user ${username} already exists in the wallet`);
@@ -46,9 +47,8 @@ const getRegisteredUser = async (username, userOrg, isJson, orgName) => {
     let adminIdentity = await wallet.get('admin');
     if (!adminIdentity) {
         console.log('An identity for the admin user "admin" does not exist in the wallet');
-        await enrollAdmin();
+        await enrollAdmin(globalName);
         adminIdentity = await wallet.get('admin');
-        console.log("Admin Enrolled Successfully")
     }
 
     // build a user object for authenticating with the CA
@@ -81,22 +81,29 @@ const getRegisteredUser = async (username, userOrg, isJson, orgName) => {
 }
 
 
-const enrollAdmin = async () => {
+const enrollAdmin = async (orgName) => {
 
+    let orgPath = `connection-${orgName}.json`
     let orgCa = `ca.${orgName}.expleoFabric.com`
+
+    let ccpPath = path.resolve(__dirname, '..', 'config', orgPath);
+    let ccpJSON = fs.readFileSync(ccpPath, 'utf8')
+    let ccp = JSON.parse(ccpJSON);
+
     orgName = orgName.charAt(0).toUpperCase()+orgName.slice(1)
-    let orgMsp =`${orgName}MSP`
+    let orgMSP =`${orgName}MSP`
+    let walletName = `wallet${orgName}`
 
     console.log('calling enroll Admin method')
 
     try {
-
+        
         const caInfo = ccp.certificateAuthorities[ orgCa ];
         const caTLSCACerts = caInfo.tlsCACerts.pem;
         const ca = new FabricCAServices(caInfo.url, { trustedRoots: caTLSCACerts, verify: false }, caInfo.caName);
 
         // Create a new file system based wallet for managing identities.
-        const walletPath = path.join(process.cwd(), 'wallet');
+        const walletPath = path.join(process.cwd(), walletName);
         const wallet = await Wallets.newFileSystemWallet(walletPath);
         console.log(`Wallet path: ${walletPath}`);
 
@@ -114,7 +121,7 @@ const enrollAdmin = async () => {
                 certificate: enrollment.certificate,
                 privateKey: enrollment.key.toBytes(),
             },
-            mspId: orgMsp,
+            mspId: orgMSP,
             type: 'X.509',
         };
 
