@@ -1,0 +1,51 @@
+
+.centerHover{
+
+height: 70%;
+width: 80%;
+margin: 7% 30%  ;
+border: solid 1px black;
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+box-shadow: 8px 8px 6px -6px black;
+
+}
+
+.logo{
+    height: 150px;
+}
+
+
+
+.text{
+
+width: 30%;
+padding: 10px 25px;
+border: none;
+font-size: 20px;
+border-bottom: 2px solid black;
+margin-top: 100px ;
+}
+
+.teams{
+font-size: large;
+margin-top: 50px;
+width: 30%;
+
+}
+
+.channels{
+font-size: large;
+margin-top: 20px ;
+width: 30%;
+}
+
+button.MuiButton-contained{
+padding: 14px 60px;
+border-radius: 50px;
+margin-top: 20px ;
+margin-right: autopx;
+}
+
