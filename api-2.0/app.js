@@ -22,6 +22,14 @@ const query = require('./app/query')
 
 app.options('*', cors());
 app.use(cors());
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');  
+    res.header("Access-Control-Allow-Headers", "Authorization");
+    
+    console.log(req.headers['authorization']);
+    next()
+    }) ;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: false
@@ -33,14 +41,15 @@ app.use(expressJWT({
 }).unless({
     path: ['/users']
 }));
-app.use(bearerToken());
 
+app.use(bearerToken());
 
 app.use((req, res, next) => {
     logger.debug('New req for %s', req.originalUrl);
     if (req.originalUrl.indexOf('/users') >= 0) {
         return next();
     }
+
     var token = req.token;
     jwt.verify(token, app.get('secret'), (err, decoded) => {
         if (err) {
@@ -157,7 +166,8 @@ app.post('/invoke', async function (req, res) {
     }
 });
 
-app.get('/invoke', async function (req, res) {
+app.post('/get', async function (req, res) {
+    
     try {
         var orgName = req.body.orgName;
         var userName = req.body.userName;

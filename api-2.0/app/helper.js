@@ -48,9 +48,12 @@ const getRegisteredUser = async (username, userOrg, isJson, orgName) => {
     if (!adminIdentity) {
         console.log('An identity for the admin user "admin" does not exist in the wallet');
         await enrollAdmin(globalName);
+        
         adminIdentity = await wallet.get('admin');
-    }
 
+        
+    }
+    
     // build a user object for authenticating with the CA
     const provider = wallet.getProviderRegistry().getProvider(adminIdentity.type);
     const adminUser = await provider.getUserContext(adminIdentity, 'admin');
