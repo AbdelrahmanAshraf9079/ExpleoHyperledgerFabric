@@ -27,7 +27,7 @@ app.use(function(req, res, next) {
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');  
     res.header("Access-Control-Allow-Headers", "Authorization");
     
-    console.log(req.headers['authorization']);
+   // console.log(req.headers['authorization']);
     next()
     }) ;
 app.use(bodyParser.json());
@@ -167,7 +167,7 @@ app.post('/invoke', async function (req, res) {
 });
 
 app.post('/get', async function (req, res) {
-    
+    console.log(req.body)
     try {
         var orgName = req.body.orgName;
         var userName = req.body.userName;
